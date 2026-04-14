@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trading Dashboard</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #0d1117; color: #e6edf3; margin: 0; padding: 20px; }
+  h1 { text-align: center; color: #58a6ff; margin-bottom: 30px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 30px; }
+  .card { background: #161b22; border-radius: 10px; padding: 15px; border: 1px solid #30363d; }
+  .card h3 { margin: 0 0 10px 0; font-size: 14px; color: #8b949e; }
+  .card .value { font-size: 24px; font-weight: bold; }
+  .card .change { font-size: 13px; margin-top: 5px; }
+  .green { color: #3fb950; }
+  .red { color: #f85149; }
+  .yellow { color: #d29922; }
+  .gauge { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .gauge-bar { flex: 1; height: 10px; border-radius: 5px; background: #30363d; overflow: hidden; }
+  .gauge-fill { height: 100%; border-radius: 5px; transition: width 0.5s; }
+  .section-title { font-size: 18px; color: #58a6ff; margin: 20px 0 10px 0; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+  .turbulence-box { background: #161b22; border-radius: 10px; padding: 20px; border: 1px solid #30363d; margin-bottom: 20px; }
+  .signal-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #21262d; }
+  .signal-row:last-child { border-bottom: none; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+</style>
+</head>
+<body>
+
+<h1>📊 Trading Dashboard</h1>
+
+<div class="section-title">🌍 מאקרו</div>
+<div class="grid">
+  <div class="card">
+    <h3>S&P 500</h3>
+    <div class="value" id="spy">טוען...</div>
+    <div class="change" id="spy-change"></div>
+    <div class="gauge"><span>🟢</span><div class="gauge-bar"><div class="gauge-fill green" style="width:65%"></div></div></div>
+  </div>
+  <div class="card">
+    <h3>NASDAQ (QQQ)</h3>
+    <div class="value" id="qqq">טוען...</div>
+    <div class="change" id="qqq-change"></div>
+    <div class="gauge"><span>🟡</span><div class="gauge-bar"><div class="gauge-fill yellow" style="width:45%"></div></div></div>
+  </div>
+  <div class="card">
+    <h3>Russell 2000 (IWM)</h3>
+    <div class="value" id="iwm">טוען...</div>
+    <div class="change" id="iwm-change"></div>
+    <div class="gauge"><span>🟢</span><div class="gauge-bar"><div class="gauge-fill green" style="width:70%"></div></div></div>
+  </div>
+  <div class="card">
+    <h3>זהב (GLD)</h3>
+    <div class="value" id="gld">טוען...</div>
+    <div class="change" id="gld-change"></div>
+    <div class="gauge"><span>🟢</span><div class="gauge-bar"><div class="gauge-fill green" style="width:80%"></div></div></div>
+  </div>
+  <div class="card">
+    <h3>כסף (SLV)</h3>
+    <div class="value" id="slv">טוען...</div>
+    <div class="change" id="slv-change"></div>
+    <div class="gauge"><span>🟢</span><div class="gauge-bar"><div class="gauge-fill green" style="width:72%"></div></div></div>
+  </div>
+  <div class="card">
+    <h3>ביטקוין (BTC)</h3>
+    <div class="value" id="btc">טוען...</div>
+    <div class="change" id="btc-change"></div>
+    <div class="gauge"><span>🟡</span><div class="gauge-bar"><div class="gauge-fill yellow" style="width:50%"></div></div></div>
+  </div>
+  <div class="card">
+    <h3>נפט (USO)</h3>
+    <div class="value" id="uso">טוען...</div>
+    <div class="change" id="uso-change"></div>
+    <div class="gauge"><span>🔴</span><div class="gauge-bar"><div class="gauge-fill red" style="width:30%"></div></div></div>
+  </div>
+  <div class="card">
+    <h3>VIX (פחד)</h3>
+    <div class="value" id="vix">טוען...</div>
+    <div class="change" id="vix-change"></div>
+    <div class="gauge"><span>🟡</span><div class="gauge-bar"><div class="gauge-fill yellow" style="width:40%"></div></div></div>
+  </div>
+  <div class="card">
+    <h3>IWM vs QQQ</h3>
+    <div class="value" id="ratio">טוען...</div>
+    <div class="change">יחס רוטציה</div>
+    <div class="gauge"><span>🟢</span><div class="gauge-bar"><div class="gauge-fill green" style="width:60%"></div></div></div>
+  </div>
+</div>
+
+<div class="section-title">⚡ מודל טורבולנציה (Visser)</div>
+<div class="turbulence-box">
+  <div class="signal-row">
+    <span>מניות שנפלו 7%+ ב-8 ימים</span>
+    <span class="yellow">⚠️ בבדיקה</span>
+    <div class="dot yellow" style="background:#d29922"></div>
+  </div>
+  <div class="signal-row">
+    <span>IWM vs QQQ — רוטציה</span>
+    <span class="green">✅ חיובי</span>
+    <div class="dot" style="background:#3fb950"></div>
+  </div>
+  <div class="signal-row">
+    <span>HY Bonds vs אג"ח (HYG/IEF)</span>
+    <span class="yellow">⚠️ בבדיקה</span>
+    <div class="dot" style="background:#d29922"></div>
+  </div>
+</div>
+
+<div class="section-title">📅 אירועים קרובים</div>
+<div class="turbulence-box">
+  <div class="signal-row">
+    <span>החלטת ריבית פד</span>
+    <span class="yellow">7 מאי 2025</span>
+  </div>
+  <div class="signal-row">
+    <span>דוח CPI</span>
+    <span class="yellow">15 מאי 2025</span>
+  </div>
+</div>
+
+<p style="text-align:center; color:#8b949e; font-size:12px; margin-top:30px;">עודכן לאחרונה: <span id="update-time"></span></p>
+
+<script>
+  document.getElementById('update-time').textContent = new Date().toLocaleString('he-IL');
+</script>
+
+</body>
+</html>
