@@ -27,22 +27,24 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;padding:20px;
 .bg{height:100%;background:#3fb950;}.br{height:100%;background:#f85149;}.by{height:100%;background:#d29922;}
 .hint{font-size:11px;color:#8b949e;margin-top:6px;line-height:1.5;}
 .panel{border:1px solid #21262d;border-radius:10px;overflow:hidden;margin-bottom:8px;}
-.row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid #21262d;background:#161b22;font-size:13px;color:#e6edf3;}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #21262d;background:#161b22;font-size:13px;color:#e6edf3;}
 .row:last-child{border-bottom:none;}
-.breadth-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #21262d;background:#161b22;font-size:13px;color:#e6edf3;}
-.breadth-row:last-child{border-bottom:none;}
-.breadth-bar{flex:1;height:4px;background:#21262d;border-radius:2px;overflow:hidden;}
-.news-card{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:14px;margin-bottom:8px;}
 .bdg{font-size:11px;padding:3px 10px;border-radius:20px;}
-.bdg-b{background:#1a2a3a;color:#58a6ff;border:1px solid #1f6feb;}
-.tab{padding:5px 13px;font-size:12px;border:1px solid #30363d;background:#161b22;cursor:pointer;color:#8b949e;border-radius:20px;}
-.tab.active{background:#e6edf3;color:#0d1117;}
-.ev-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid #21262d;font-size:13px;background:#161b22;color:#e6edf3;}
-.ev-row:last-child{border-bottom:none;}
+.bdg-g{background:#1a3a2a;color:#3fb950;border:1px solid #2ea043;}
+.bdg-y{background:#2d2a1a;color:#d29922;border:1px solid #9e6a03;}
+.bdg-r{background:#3a1a1a;color:#f85149;border:1px solid #da3633;}
+.chip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px;}
+.chip{background:#21262d;border-radius:6px;padding:8px 10px;font-size:13px;font-weight:bold;}
+.chip span{display:block;font-size:11px;margin-top:2px;}
+.meter-track{height:10px;background:#21262d;border-radius:5px;overflow:hidden;margin:8px 0;}
+.meter-fill{height:100%;border-radius:5px;}
 .gauge-track{height:6px;background:#21262d;border-radius:3px;overflow:hidden;}
 .gauge-fill{height:100%;border-radius:3px;}
-.sentiment-bar{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:14px 18px;margin-bottom:1.6rem;display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.sentiment-bar{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:16px 20px;margin-bottom:1.6rem;display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
 .stock-zone{margin-top:2rem;padding-top:2rem;border-top:1px solid #30363d;}
+.tv-widget{background:#161b22;border:1px solid #21262d;border-radius:10px;overflow:hidden;margin-top:12px;}
+.toggle{font-size:12px;color:#58a6ff;cursor:pointer;background:none;border:none;color:#58a6ff;margin-top:5px;padding:0;}
+.seismo-wrap{background:#0a0e14;border:1px solid #21262d;border-radius:10px;padding:16px;margin-bottom:8px;}
 </style>
 </head>
 <body>
@@ -59,109 +61,132 @@ body{font-family:Arial,sans-serif;background:#0d1117;color:#e6edf3;padding:20px;
   </div>
 </div>
 
+<!-- SENTIMENT BAR -->
 <div class="sentiment-bar">
   <div style="flex:1;min-width:120px;">
     <div style="font-size:11px;color:#8b949e;margin-bottom:5px;">Fear & Greed</div>
     <div style="display:flex;align-items:center;gap:10px;">
-      <div style="font-size:24px;font-weight:bold;" id="fg-val">--</div>
-      <span style="font-size:11px;padding:3px 10px;border-radius:20px;background:#2d2a1a;color:#d29922;" id="fg-label">טוען...</span>
+      <div style="font-size:26px;font-weight:bold;" id="fg-val">--</div>
+      <span class="bdg bdg-y" id="fg-label">טוען...</span>
     </div>
     <div class="gauge-track" style="margin-top:7px;"><div class="gauge-fill" id="fg-bar" style="width:50%;background:#d29922;"></div></div>
   </div>
   <div style="width:1px;height:50px;background:#21262d;"></div>
   <div style="flex:1;min-width:120px;">
     <div style="font-size:11px;color:#8b949e;margin-bottom:5px;">BTC Dominance</div>
-    <div style="font-size:24px;font-weight:bold;color:#e6edf3;" id="btc-dom">--</div>
+    <div style="font-size:26px;font-weight:bold;color:#e6edf3;" id="btc-dom">--</div>
     <div style="font-size:11px;color:#8b949e;margin-top:5px;">עולה = אלטים נחלשים</div>
+  </div>
+  <div style="width:1px;height:50px;background:#21262d;"></div>
+  <div style="flex:1;min-width:120px;">
+    <div style="font-size:11px;color:#8b949e;margin-bottom:5px;">VIX — פחד שוק</div>
+    <div style="font-size:26px;font-weight:bold;" id="vix-val">--</div>
+    <div style="font-size:11px;color:#8b949e;margin-top:5px;" id="vix-hint">טוען...</div>
   </div>
   <div style="width:1px;height:50px;background:#21262d;"></div>
   <div style="flex:1;min-width:120px;">
     <div style="font-size:11px;color:#8b949e;margin-bottom:5px;">עונתיות — אפריל</div>
     <div style="font-size:16px;font-weight:bold;color:#3fb950;margin-top:5px;">חיובי היסטורית</div>
-    <div style="font-size:11px;color:#8b949e;margin-top:5px;">ממוצע +2.1%</div>
+    <div style="font-size:11px;color:#8b949e;margin-top:5px;">+2.1% ממוצע</div>
   </div>
 </div>
 
-<div class="sec"><div class="sec-label">חוזים עתידיים</div><div class="sec-line"></div></div>
-<div class="g4">
-  <div class="cell"><div class="lbl">S&P 500 — SPY</div><div class="val" id="spy-p">טוען...</div><div class="chg" id="spy-c"></div><div class="bar"><div id="spy-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">נאסד"ק — QQQ</div><div class="val" id="qqq-p">טוען...</div><div class="chg" id="qqq-c"></div><div class="bar"><div id="qqq-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">דאו — DIA</div><div class="val" id="dia-p">טוען...</div><div class="chg" id="dia-c"></div><div class="bar"><div id="dia-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">ראסל — IWM</div><div class="val" id="iwm-p">טוען...</div><div class="chg" id="iwm-c"></div><div class="bar"><div id="iwm-b" style="width:50%" class="bg"></div></div></div>
+<!-- SEISMOGRAPH -->
+<div class="sec"><div class="sec-label">סייסמוגרף ויסר — מודל טורבולנציה</div><div class="sec-line"></div></div>
+<div class="seismo-wrap">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+    <div>
+      <div style="font-size:11px;color:#8b949e;">רמת טורבולנציה כוללת</div>
+      <div style="font-size:36px;font-weight:bold;" id="turb-val">--</div>
+    </div>
+    <div style="text-align:left;">
+      <span class="bdg bdg-y" id="turb-label" style="font-size:13px;">טוען...</span>
+      <div style="font-size:11px;color:#8b949e;margin-top:6px;" id="turb-desc"></div>
+    </div>
+  </div>
+  <div class="meter-track">
+    <div class="meter-fill" id="turb-bar" style="width:0%;background:linear-gradient(to right,#3fb950,#d29922,#f85149);"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:10px;color:#8b949e;margin-top:4px;">
+    <span>רגוע</span><span>מוגבר</span><span>סכנה</span>
+  </div>
 </div>
 
+<div class="panel">
+  <div class="row">
+    <div>
+      <div style="font-weight:bold;">מניות שנפלו 7%+ ב-8 ימים</div>
+      <div style="font-size:11px;color:#8b949e;margin-top:3px;" id="fallen-desc">טוען...</div>
+    </div>
+    <span class="bdg" id="fallen-bdg">--</span>
+  </div>
+  <div class="row">
+    <div>
+      <div style="font-weight:bold;">IWM vs QQQ — רוטציה</div>
+      <div style="font-size:11px;color:#8b949e;margin-top:3px;" id="rotation-desc">טוען...</div>
+    </div>
+    <span class="bdg" id="rotation-bdg">--</span>
+  </div>
+  <div class="row">
+    <div>
+      <div style="font-weight:bold;">HYG vs IEF — Credit Spread</div>
+      <div style="font-size:11px;color:#8b949e;margin-top:3px;" id="credit-desc">טוען...</div>
+    </div>
+    <span class="bdg" id="credit-bdg">--</span>
+  </div>
+</div>
+
+<!-- MARKETS -->
+<div class="sec"><div class="sec-label">שוק המניות — נתונים חיים</div><div class="sec-line"></div></div>
+<div class="g4">
+  <div class="cell"><div class="lbl">S&P 500 — SPY</div><div class="val" id="spy-p">טוען...</div><div class="chg" id="spy-c"></div><div class="bar"><div id="spy-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">נאסד"ק — QQQ</div><div class="val" id="qqq-p">טוען...</div><div class="chg" id="qqq-c"></div><div class="bar"><div id="qqq-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">דאו — DIA</div><div class="val" id="dia-p">טוען...</div><div class="chg" id="dia-c"></div><div class="bar"><div id="dia-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">ראסל — IWM</div><div class="val" id="iwm-p">טוען...</div><div class="chg" id="iwm-c"></div><div class="bar"><div id="iwm-b" class="bg" style="width:50%"></div></div></div>
+</div>
+
+<!-- CRYPTO -->
 <div class="sec"><div class="sec-label">קריפטו</div><div class="sec-line"></div></div>
 <div class="g3">
-  <div class="cell"><div class="lbl">ביטקוין BTC</div><div class="val" id="btc-p">טוען...</div><div class="chg" id="btc-c"></div><div class="bar"><div id="btc-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">את'ריום ETH</div><div class="val" id="eth-p">טוען...</div><div class="chg" id="eth-c"></div><div class="bar"><div id="eth-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">סולנה SOL</div><div class="val" id="sol-p">טוען...</div><div class="chg" id="sol-c"></div><div class="bar"><div id="sol-b" style="width:50%" class="bg"></div></div></div>
+  <div class="cell"><div class="lbl">ביטקוין BTC</div><div class="val" id="btc-p">טוען...</div><div class="chg" id="btc-c"></div><div class="bar"><div id="btc-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">את'ריום ETH</div><div class="val" id="eth-p">טוען...</div><div class="chg" id="eth-c"></div><div class="bar"><div id="eth-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">סולנה SOL</div><div class="val" id="sol-p">טוען...</div><div class="chg" id="sol-c"></div><div class="bar"><div id="sol-b" class="bg" style="width:50%"></div></div></div>
 </div>
 
+<!-- COMMODITIES -->
 <div class="sec"><div class="sec-label">מתכות וסחורות</div><div class="sec-line"></div></div>
 <div class="g5">
-  <div class="cell"><div class="lbl">זהב GLD</div><div class="val" id="gld-p">טוען...</div><div class="chg" id="gld-c"></div><div class="bar"><div id="gld-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">כסף SLV</div><div class="val" id="slv-p">טוען...</div><div class="chg" id="slv-c"></div><div class="bar"><div id="slv-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">נחושת COPX</div><div class="val" id="copx-p">טוען...</div><div class="chg" id="copx-c"></div><div class="bar"><div id="copx-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">נפט USO</div><div class="val" id="uso-p">טוען...</div><div class="chg" id="uso-c"></div><div class="bar"><div id="uso-b" style="width:50%" class="bg"></div></div></div>
-  <div class="cell"><div class="lbl">VIX</div><div class="val" id="vix-p">טוען...</div><div class="chg" id="vix-c"></div><div class="bar"><div id="vix-b" style="width:50%" class="by"></div></div></div>
+  <div class="cell"><div class="lbl">זהב GLD</div><div class="val" id="gld-p">טוען...</div><div class="chg" id="gld-c"></div><div class="bar"><div id="gld-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">כסף SLV</div><div class="val" id="slv-p">טוען...</div><div class="chg" id="slv-c"></div><div class="bar"><div id="slv-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">נחושת COPX</div><div class="val" id="copx-p">טוען...</div><div class="chg" id="copx-c"></div><div class="bar"><div id="copx-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">נפט USO</div><div class="val" id="uso-p">טוען...</div><div class="chg" id="uso-c"></div><div class="bar"><div id="uso-b" class="bg" style="width:50%"></div></div></div>
+  <div class="cell"><div class="lbl">VIX</div><div class="val" id="vix-p">טוען...</div><div class="chg" id="vix-c"></div><div class="bar"><div id="vix-b" class="by" style="width:50%"></div></div></div>
 </div>
 
+<!-- SECTORS -->
 <div class="sec"><div class="sec-label">סקטורים</div><div class="sec-line"></div></div>
 <div class="panel">
-  <div class="breadth-row" style="font-size:11px;color:#8b949e;border-bottom:1px solid #21262d;">
-    <span style="min-width:140px;">סקטור</span><span style="min-width:70px;">שינוי</span><span style="flex:1;"></span>
+  <div class="row" style="font-size:11px;color:#8b949e;border-bottom:1px solid #21262d;">
+    <span style="min-width:150px;">סקטור</span><span style="min-width:70px;">שינוי יומי</span><span style="flex:1;text-align:center;">מגמה</span>
   </div>
-  <div class="breadth-row"><span style="min-width:140px;font-weight:bold;">אנרגיה XLE</span><span id="xle-c" style="min-width:70px;">טוען...</span><div class="breadth-bar"><div id="xle-b" class="bg" style="width:50%;height:100%;"></div></div></div>
-  <div class="breadth-row"><span style="min-width:140px;font-weight:bold;">תעשייה XLI</span><span id="xli-c" style="min-width:70px;">טוען...</span><div class="breadth-bar"><div id="xli-b" class="bg" style="width:50%;height:100%;"></div></div></div>
-  <div class="breadth-row"><span style="min-width:140px;font-weight:bold;">פיננסים XLF</span><span id="xlf-c" style="min-width:70px;">טוען...</span><div class="breadth-bar"><div id="xlf-b" class="bg" style="width:50%;height:100%;"></div></div></div>
-  <div class="breadth-row"><span style="min-width:140px;font-weight:bold;">בריאות XLV</span><span id="xlv-c" style="min-width:70px;">טוען...</span><div class="breadth-bar"><div id="xlv-b" class="bg" style="width:50%;height:100%;"></div></div></div>
-  <div class="breadth-row"><span style="min-width:140px;font-weight:bold;">טכנולוגיה XLK</span><span id="xlk-c" style="min-width:70px;">טוען...</span><div class="breadth-bar"><div id="xlk-b" class="bg" style="width:50%;height:100%;"></div></div></div>
-  <div class="breadth-row"><span style="min-width:140px;font-weight:bold;">תקשורת XLC</span><span id="xlc-c" style="min-width:70px;">טוען...</span><div class="breadth-bar"><div id="xlc-b" class="bg" style="width:50%;height:100%;"></div></div></div>
+  <div class="row"><span style="min-width:150px;font-weight:bold;">אנרגיה XLE</span><span id="xle-c" style="min-width:70px;">טוען...</span><div style="flex:1;height:4px;background:#21262d;border-radius:2px;overflow:hidden;margin:0 10px;"><div id="xle-b" class="bg" style="width:50%;height:100%;"></div></div></div>
+  <div class="row"><span style="min-width:150px;font-weight:bold;">תעשייה XLI</span><span id="xli-c" style="min-width:70px;">טוען...</span><div style="flex:1;height:4px;background:#21262d;border-radius:2px;overflow:hidden;margin:0 10px;"><div id="xli-b" class="bg" style="width:50%;height:100%;"></div></div></div>
+  <div class="row"><span style="min-width:150px;font-weight:bold;">פיננסים XLF</span><span id="xlf-c" style="min-width:70px;">טוען...</span><div style="flex:1;height:4px;background:#21262d;border-radius:2px;overflow:hidden;margin:0 10px;"><div id="xlf-b" class="bg" style="width:50%;height:100%;"></div></div></div>
+  <div class="row"><span style="min-width:150px;font-weight:bold;">בריאות XLV</span><span id="xlv-c" style="min-width:70px;">טוען...</span><div style="flex:1;height:4px;background:#21262d;border-radius:2px;overflow:hidden;margin:0 10px;"><div id="xlv-b" class="bg" style="width:50%;height:100%;"></div></div></div>
+  <div class="row"><span style="min-width:150px;font-weight:bold;">טכנולוגיה XLK</span><span id="xlk-c" style="min-width:70px;">טוען...</span><div style="flex:1;height:4px;background:#21262d;border-radius:2px;overflow:hidden;margin:0 10px;"><div id="xlk-b" class="bg" style="width:50%;height:100%;"></div></div></div>
+  <div class="row"><span style="min-width:150px;font-weight:bold;">תקשורת XLC</span><span id="xlc-c" style="min-width:70px;">טוען...</span><div style="flex:1;height:4px;background:#21262d;border-radius:2px;overflow:hidden;margin:0 10px;"><div id="xlc-b" class="bg" style="width:50%;height:100%;"></div></div></div>
 </div>
 
-<div class="sec"><div class="sec-label">חדשות</div><div class="sec-line"></div></div>
-<div id="news-container"><div style="color:#8b949e;padding:20px;text-align:center;">טוען חדשות...</div></div>
-
-<div class="sec"><div class="sec-label">אירועים קרובים</div><div class="sec-line"></div></div>
-<div style="display:flex;gap:8px;margin-bottom:12px;">
-  <button class="tab active" onclick="showTab('d')">יומי</button>
-  <button class="tab" onclick="showTab('w')">שבועי</button>
-  <button class="tab" onclick="showTab('m')">חודשי</button>
-  <button class="tab" onclick="showTab('y')">שנתי</button>
-</div>
-<div class="panel">
-  <div id="ev-d">
-    <div class="ev-row"><span>החלטת ריבית פד</span><span style="color:#f85149;">7 מאי</span></div>
-    <div class="ev-row"><span>CPI אינפלציה</span><span style="color:#d29922;">15 מאי</span></div>
-  </div>
-  <div id="ev-w" style="display:none">
-    <div class="ev-row"><span>פד ריבית</span><span style="color:#f85149;">7 מאי</span></div>
-    <div class="ev-row"><span>NVDA דוח</span><span style="color:#d29922;">28 מאי</span></div>
-  </div>
-  <div id="ev-m" style="display:none">
-    <div class="ev-row"><span>פד ריבית</span><span style="color:#f85149;">7 מאי</span></div>
-    <div class="ev-row"><span>CPI מאי</span><span style="color:#d29922;">15 מאי</span></div>
-    <div class="ev-row"><span>NVDA רבעוני</span><span style="color:#d29922;">28 מאי</span></div>
-  </div>
-  <div id="ev-y" style="display:none">
-    <div class="ev-row"><span>בחירות ביניים</span><span style="color:#f85149;">נובמבר 2026</span></div>
-    <div class="ev-row"><span>ג'קסון הול</span><span style="color:#d29922;">אוגוסט 2026</span></div>
-  </div>
-</div>
-
+<!-- STOCK SEARCH -->
 <div id="stock-zone" style="display:none;" class="stock-zone">
-  <div id="stock-content"></div>
+  <div class="sec"><div class="sec-label" id="stock-title">ניתוח מניה</div><div class="sec-line"></div></div>
+  <div id="stock-info"></div>
+  <div class="tv-widget" id="tv-chart"></div>
 </div>
 
 <script>
 const CG='CG-FvE2mXRFqvbmHX4WqD18oauc';
-const FH='d7fusg1r01qqb8rhntigd7fusg1r01qqb8rhntj0';
-const FRED='e61769d441c38bf70f8220c41ec752b6';
-
-function showTab(t){
-  ['d','w','m','y'].forEach(x=>{document.getElementById('ev-'+x).style.display=x===t?'block':'none';});
-  document.querySelectorAll('.tab').forEach((b,i)=>{b.classList.toggle('active',['d','w','m','y'][i]===t);});
-}
+const PROXY='https://query1.finance.yahoo.com/v8/finance/chart/';
 
 function setCell(p,price,chg){
   const u=chg>=0;
@@ -181,6 +206,24 @@ function setSector(p,chg){
   if(be){be.style.width=Math.min(Math.max(50+chg*5,5),95)+'%';be.className=u?'bg':'br';}
 }
 
+async function loadYahoo(ticker,prefix,isSector){
+  try{
+    const url=`https://corsproxy.io/?${encodeURIComponent(PROXY+ticker+'?interval=1d&range=2d')}`;
+    const r=await fetch(url);
+    const d=await r.json();
+    const q=d.chart.result[0].meta;
+    const price=q.regularMarketPrice;
+    const prev=q.previousClose||q.chartPreviousClose;
+    const chg=((price-prev)/prev)*100;
+    if(isSector){setSector(prefix,chg);}
+    else{setCell(prefix,price,chg);}
+    return {price,chg};
+  }catch(e){
+    console.error(ticker,e);
+    return null;
+  }
+}
+
 async function loadCrypto(){
   try{
     const r=await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true&x_cg_demo_api_key=${CG}`);
@@ -189,7 +232,7 @@ async function loadCrypto(){
     if(d.ethereum)setCell('eth',d.ethereum.usd,d.ethereum.usd_24h_change);
     if(d.solana)setCell('sol',d.solana.usd,d.solana.usd_24h_change);
     document.getElementById('update-time').textContent='עודכן: '+new Date().toLocaleTimeString('he-IL');
-  }catch(e){console.error(e);}
+  }catch(e){}
 }
 
 async function loadBTCDom(){
@@ -216,103 +259,186 @@ async function loadFG(){
   }catch(e){}
 }
 
-async function loadFH(ticker,prefix){
+async function loadVisserModel(){
   try{
-    const r=await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${FH}`);
-    const d=await r.json();
-    if(d.c&&d.c>0)setCell(prefix,d.c,d.dp);
-    return d;
-  }catch(e){return null;}
-}
+    const [vixData,iwmData,qqqData,hygData,iefData]=await Promise.all([
+      loadYahoo('%5EVIX','vix',false),
+      loadYahoo('IWM','iwm',false),
+      loadYahoo('QQQ','qqq',false),
+      loadYahoo('HYG','hyg',true),
+      loadYahoo('IEF','ief',true),
+    ]);
 
-async function loadSector(ticker,prefix){
-  try{
-    const r=await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${FH}`);
-    const d=await r.json();
-    if(d.dp)setSector(prefix,d.dp);
-  }catch(e){}
-}
+    let score=0;
+    let signals=0;
 
-async function loadNews(){
-  try{
-    const r=await fetch(`https://finnhub.io/api/v1/news?category=general&token=${FH}`);
-    const news=await r.json();
-    const c=document.getElementById('news-container');
-    c.innerHTML='';
-    news.slice(0,4).forEach(n=>{
-      const t=new Date(n.datetime*1000).toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
-      c.innerHTML+=`<div class="news-card">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-          <span class="bdg bdg-b">${n.source}</span>
-          <span style="font-size:11px;color:#8b949e;">${t}</span>
-        </div>
-        <div style="font-size:14px;font-weight:bold;color:#e6edf3;line-height:1.4;">${n.headline}</div>
-      </div>`;
-    });
-  }catch(e){}
+    if(vixData){
+      const vix=vixData.price;
+      document.getElementById('vix-val').textContent=vix.toFixed(1);
+      document.getElementById('vix-val').style.color=vix>25?'#f85149':vix>20?'#d29922':'#3fb950';
+      document.getElementById('vix-hint').textContent=vix>25?'פחד גבוה — זהירות':vix>20?'מוגבר — תשומת לב':'רגוע';
+      document.getElementById('vix-p').textContent=vix.toFixed(1);
+      if(vix>25){score+=30;signals++;}
+      else if(vix>20){score+=15;}
+    }
+
+    if(iwmData&&qqqData){
+      const rotation=iwmData.chg-qqqData.chg;
+      const rotEl=document.getElementById('rotation-desc');
+      const rotBdg=document.getElementById('rotation-bdg');
+      if(rotation>0){
+        rotEl.textContent=`IWM +${iwmData.chg.toFixed(1)}% מוביל QQQ ${qqqData.chg.toFixed(1)}% — רוטציה חיובית`;
+        rotBdg.textContent='✅ חיובי';
+        rotBdg.className='bdg bdg-g';
+      }else{
+        rotEl.textContent=`QQQ ${qqqData.chg.toFixed(1)}% מוביל IWM ${iwmData.chg.toFixed(1)}% — טכנולוגיה שולטת`;
+        rotBdg.textContent='⚠️ ניטרלי';
+        rotBdg.className='bdg bdg-y';
+        score+=10;
+      }
+    }
+
+    if(hygData&&iefData){
+      const spread=hygData.chg-iefData.chg;
+      const credEl=document.getElementById('credit-desc');
+      const credBdg=document.getElementById('credit-bdg');
+      if(spread<-0.5){
+        credEl.textContent='HYG נחלש ביחס לאג"ח — שוק מפחד מ-default';
+        credBdg.textContent='🔴 זהירות';
+        credBdg.className='bdg bdg-r';
+        score+=25;signals++;
+      }else{
+        credEl.textContent='Credit spread נורמלי — שוק רגוע יחסית';
+        credBdg.textContent='✅ נורמלי';
+        credBdg.className='bdg bdg-g';
+      }
+    }
+
+    const fallenEl=document.getElementById('fallen-desc');
+    const fallenBdg=document.getElementById('fallen-bdg');
+    if(signals>=2){
+      fallenEl.textContent='מספר סיגנלים מוגברים — בדוק מניות בלחץ';
+      fallenBdg.textContent='⚠️ מוגבר';
+      fallenBdg.className='bdg bdg-y';
+      score+=20;
+    }else{
+      fallenEl.textContent='סיגנלים נמוכים — שוק יציב יחסית';
+      fallenBdg.textContent='✅ רגוע';
+      fallenBdg.className='bdg bdg-g';
+    }
+
+    const turbEl=document.getElementById('turb-val');
+    const turbBar=document.getElementById('turb-bar');
+    const turbLabel=document.getElementById('turb-label');
+    const turbDesc=document.getElementById('turb-desc');
+    turbEl.textContent=score;
+    turbBar.style.width=Math.min(score,100)+'%';
+    if(score>=60){
+      turbEl.style.color='#f85149';
+      turbLabel.textContent='🔴 סכנה';
+      turbLabel.className='bdg bdg-r';
+      turbDesc.textContent='טורבולנציה גבוהה — הפחת חשיפה וחכה להזדמנות';
+    }else if(score>=30){
+      turbEl.style.color='#d29922';
+      turbLabel.textContent='⚠️ מוגבר';
+      turbLabel.className='bdg bdg-y';
+      turbDesc.textContent='שוק בלחץ — זהירות, אל תרדוף אחרי מחיר';
+    }else{
+      turbEl.style.color='#3fb950';
+      turbLabel.textContent='✅ רגוע';
+      turbLabel.className='bdg bdg-g';
+      turbDesc.textContent='שוק יציב — הזדמנויות אפשריות';
+    }
+  }catch(e){console.error(e);}
 }
 
 async function searchStock(){
   const ticker=document.getElementById('ti').value.trim().toUpperCase();
   if(!ticker)return;
   const zone=document.getElementById('stock-zone');
-  const el=document.getElementById('stock-content');
+  const info=document.getElementById('stock-info');
+  const chart=document.getElementById('tv-chart');
   zone.style.display='block';
-  el.innerHTML='<div style="color:#8b949e;padding:20px;text-align:center;">טוען נתונים...</div>';
+  document.getElementById('stock-title').textContent=ticker+' — ניתוח';
+  info.innerHTML='<div style="color:#8b949e;padding:20px;text-align:center;">טוען נתונים...</div>';
+
   try{
-    const [qr,pr,mr,nr]=await Promise.all([
-      fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${FH}`),
-      fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${ticker}&token=${FH}`),
-      fetch(`https://finnhub.io/api/v1/stock/metric?symbol=${ticker}&metric=all&token=${FH}`),
-      fetch(`https://finnhub.io/api/v1/company-news?symbol=${ticker}&from=2025-01-01&to=2025-12-31&token=${FH}`)
-    ]);
-    const q=await qr.json();
-    const p=await pr.json();
-    const m=await mr.json();
-    const n=await nr.json();
-    if(!q.c||q.c===0){el.innerHTML='<div style="color:#f85149;padding:20px;text-align:center;">סימול לא נמצא</div>';return;}
-    const u=q.d>=0;
-    const mt=m.metric||{};
-    el.innerHTML=`
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.4rem;padding-bottom:1rem;border-bottom:1px solid #21262d;">
+    const url=`https://corsproxy.io/?${encodeURIComponent(PROXY+ticker+'?interval=1d&range=1mo')}`;
+    const r=await fetch(url);
+    const d=await r.json();
+    const meta=d.chart.result[0].meta;
+    const price=meta.regularMarketPrice;
+    const prev=meta.previousClose||meta.chartPreviousClose;
+    const chg=((price-prev)/prev)*100;
+    const isUp=chg>=0;
+    const high=meta.regularMarketDayHigh||price;
+    const low=meta.regularMarketDayLow||price;
+    const vol=meta.regularMarketVolume||0;
+
+    info.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #21262d;">
         <div>
-          <div style="font-size:22px;font-weight:bold;color:#e6edf3;">${p.name||ticker}</div>
-          <div style="font-size:12px;color:#8b949e;margin-top:4px;">${ticker} · ${p.finnhubIndustry||''}</div>
+          <div style="font-size:22px;font-weight:bold;color:#e6edf3;">${ticker}</div>
+          <div style="font-size:12px;color:#8b949e;margin-top:4px;">${meta.exchangeName||''}</div>
         </div>
         <div style="text-align:left;">
-          <div style="font-size:26px;font-weight:bold;color:#e6edf3;">$${q.c.toFixed(2)}</div>
-          <div style="font-size:14px;" class="${u?'up':'dn'}">${u?'+':''}${q.dp.toFixed(2)}%</div>
+          <div style="font-size:28px;font-weight:bold;color:#e6edf3;">$${price.toFixed(2)}</div>
+          <div style="font-size:15px;" class="${isUp?'up':'dn'}">${isUp?'+':''}${chg.toFixed(2)}%</div>
         </div>
       </div>
-      <div class="g4">
-        <div class="cell"><div class="lbl">שיא יומי</div><div class="val">$${q.h.toFixed(2)}</div></div>
-        <div class="cell"><div class="lbl">שפל יומי</div><div class="val">$${q.l.toFixed(2)}</div></div>
-        <div class="cell"><div class="lbl">שיא 52W</div><div class="val">${mt['52WeekHigh']?'$'+mt['52WeekHigh'].toFixed(2):'--'}</div></div>
-        <div class="cell"><div class="lbl">P/E</div><div class="val">${mt.peBasicExclExtraTTM?mt.peBasicExclExtraTTM.toFixed(1):'--'}</div></div>
-      </div>
-      <div style="margin-top:1.4rem;">
-        ${n.slice(0,3).map(x=>`<div class="news-card">
-          <div style="font-size:13px;font-weight:bold;color:#e6edf3;margin-bottom:4px;">${x.headline}</div>
-          <div style="font-size:11px;color:#8b949e;">${x.source} · ${new Date(x.datetime*1000).toLocaleDateString('he-IL')}</div>
-        </div>`).join('')}
+      <div class="g4" style="margin-bottom:12px;">
+        <div class="cell"><div class="lbl">שיא יומי</div><div class="val">$${high.toFixed(2)}</div></div>
+        <div class="cell"><div class="lbl">שפל יומי</div><div class="val">$${low.toFixed(2)}</div></div>
+        <div class="cell"><div class="lbl">מחיר אתמול</div><div class="val">$${prev.toFixed(2)}</div></div>
+        <div class="cell"><div class="lbl">Volume</div><div class="val">${(vol/1000000).toFixed(1)}M</div></div>
       </div>`;
+
+    chart.innerHTML=`
+      <div class="tradingview-widget-container" style="height:400px;">
+        <div id="tv-container-${ticker}"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"><\/script>
+        <script type="text/javascript">
+          new TradingView.widget({
+            width:"100%",height:400,symbol:"${ticker}",
+            interval:"D",timezone:"Etc/UTC",
+            theme:"dark",style:"1",locale:"he",
+            toolbar_bg:"#161b22",enable_publishing:false,
+            hide_top_toolbar:false,hide_legend:false,
+            container_id:"tv-container-${ticker}"
+          });
+        <\/script>
+      </div>`;
+
     zone.scrollIntoView({behavior:'smooth'});
-  }catch(e){el.innerHTML='<div style="color:#f85149;padding:20px;">שגיאה</div>';}
+  }catch(e){
+    info.innerHTML='<div style="color:#f85149;padding:20px;text-align:center;">לא נמצא — בדוק את הסימול</div>';
+  }
 }
 
 async function loadAll(){
   await Promise.all([
-    loadCrypto(),loadBTCDom(),loadFG(),loadNews(),
-    loadFH('SPY','spy'),loadFH('QQQ','qqq'),loadFH('DIA','dia'),loadFH('IWM','iwm'),
-    loadFH('GLD','gld'),loadFH('SLV','slv'),loadFH('COPX','copx'),loadFH('USO','uso'),loadFH('VIXY','vix'),
-    loadSector('XLE','xle'),loadSector('XLI','xli'),loadSector('XLF','xlf'),
-    loadSector('XLV','xlv'),loadSector('XLK','xlk'),loadSector('XLC','xlc'),
+    loadCrypto(),
+    loadBTCDom(),
+    loadFG(),
+    loadVisserModel(),
+    loadYahoo('SPY','spy',false),
+    loadYahoo('DIA','dia',false),
+    loadYahoo('GLD','gld',false),
+    loadYahoo('SLV','slv',false),
+    loadYahoo('COPX','copx',false),
+    loadYahoo('USO','uso',false),
+    loadYahoo('XLE','xle',true),
+    loadYahoo('XLI','xli',true),
+    loadYahoo('XLF','xlf',true),
+    loadYahoo('XLV','xlv',true),
+    loadYahoo('XLK','xlk',true),
+    loadYahoo('XLC','xlc',true),
   ]);
 }
 
 loadAll();
 setInterval(loadCrypto,60000);
-setInterval(loadNews,300000);
+setInterval(loadAll,300000);
 </script>
 </body>
 </html>
